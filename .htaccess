@@ -1,0 +1,9 @@
+DirectoryIndex /web/index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILE} !-f
+RewriteCond %{REQUEST_FILE} !-l
+RewriteCond %{REQUEST_URI} !^/web [NC]
+RewriteRule ^(.+)$ /web/$1 [L]
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
