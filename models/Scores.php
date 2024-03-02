@@ -5,6 +5,7 @@ use app\models\Payments;
 use app\models\Save;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 class Scores extends ActiveRecord
 {
@@ -27,6 +28,26 @@ class Scores extends ActiveRecord
             'credit_limit' => 'Кредитный лимит',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if(isset($changedAttributes['summa'])) {
+            $summa = $this->summa - $changedAttributes['summa'];
+            if($this->isTransfer($summa)) {
+                Log::addLog(Log::TYPE_TRANSFER, $summa, null, $this->id);
+            }
+        }
+
+        return parent::afterSave($insert, $changedAttributes);
+    }
+    public function isTransfer($summa)
+    {
+        $created_at_from = time();
+        $created_at_to = $created_at_from + 2;
+        if(Log::find()->where(['between', 'created_at', $created_at_from - 1, $created_at_to])->andWhere(['type_id' => Log::TYPE_COST])->andWhere(['value' => abs($summa)])->exists()) return false;
+        if(Log::find()->where(['between', 'created_at', $created_at_from - 1, $created_at_to])->andWhere(['type_id' => Log::TYPE_INCOME])->andWhere(['value' => abs($summa)])->exists()) return false;
+        return true;
+    }
     public function getScoreName($id)
     {
         return self::findOne($id)->name;
@@ -36,8 +57,7 @@ class Scores extends ActiveRecord
         $model = self::findOne($id);
         $summa = $model->summa + $cost;
         $model->summa = $summa;
-        if($model->save()) return true;
-        return false;
+        return $model->save();
     }
     public function getAccessMoney()
     {
@@ -74,5 +94,9 @@ class Scores extends ActiveRecord
         $month = date('m');
         $year = date('Y');
         return mktime(0,0,0, $month,1,$year);
+    }
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->where(['is_check' => 1])->asArray()->all(), 'id', 'name');
     }
 }

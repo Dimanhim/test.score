@@ -27,7 +27,7 @@ $this->title = 'Переводы между счетами';
         <?php
         $items = [];
         foreach(Scores::find()->all() as $item) {
-            $items[$item->id] = $item->name;
+            $items[$item->id] = $item->name . ' (' . $item->summa . ' р.)';
         }
         $params = [
             'prompt' => 'Выбрать...'];
@@ -37,7 +37,7 @@ $this->title = 'Переводы между счетами';
         <?php
         $items = [];
         foreach(Scores::find()->all() as $item) {
-            $items[$item->id] = $item->name;
+            $items[$item->id] = $item->name . ' (' . $item->summa . ' р.)';
         }
         $params = [
             'prompt' => 'Выбрать...'];

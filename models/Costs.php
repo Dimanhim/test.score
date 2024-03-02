@@ -2,6 +2,7 @@
 
 namespace app\models;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 class Costs extends ActiveRecord
@@ -9,6 +10,13 @@ class Costs extends ActiveRecord
     const DAY_FOR_STAT = 15;
 
     public $obligstory_payments;
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
     public function rules()
     {
@@ -31,6 +39,8 @@ class Costs extends ActiveRecord
             'score',
             'date',
             'check_for_days',
+            'created_at',
+            'updated_at',
         ];
     }
     public function attributeLabels()
@@ -49,7 +59,7 @@ class Costs extends ActiveRecord
     }
     public function afterSave($insert, $attributes)
     {
-        Log::addLog(Log::TYPE_COST, $this->cost, 'Добавлен расход');
+        Log::addLog(Log::TYPE_COST, $this->cost, $this->name, $this->score, $this->obligstory_payments);
         return parent::afterSave($insert, $attributes);
     }
     public function getCatCosts($cat) {
@@ -80,6 +90,10 @@ class Costs extends ActiveRecord
         return $price;
     }
     public function getScore()
+    {
+        return $this->hasMany(Scores::className(), ['id' => 'score']);
+    }
+    public function getScoreModel()
     {
         return $this->hasMany(Scores::className(), ['id' => 'score']);
     }

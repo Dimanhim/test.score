@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\controllers\BaseController;
 use app\models\Payments;
 use Yii;
 use yii\filters\AccessControl;
@@ -19,60 +20,10 @@ use app\models\IncomesDefault;
 use yii\data\Pagination;
 use app\models\CostsSearch;
 
-class CostsController extends Controller
+class CostsController extends BaseController
 {
 
-   /* public function beforeAction($action)
-    {
-        $user = Yii::$app->user;
-        if($user->isGuest AND $this->action->id !== 'login')
-        {
-            $user->loginRequired();
-        }
-        return true;
-    }*/
    const DAYS = 30;
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
 
     /**
      * Displays homepage.

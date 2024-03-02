@@ -17,58 +17,8 @@ use app\models\Costs;
 use app\models\CostsDefault;
 use app\models\IncomesDefault;
 
-class PaymentsController extends Controller
+class PaymentsController extends BaseController
 {
-    public function beforeAction($action)
-    {
-        $user = Yii::$app->user;
-        if($user->isGuest AND $this->action->id !== 'login')
-        {
-            $user->loginRequired();
-        }
-        return true;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
 
     /**
      * Displays homepage.

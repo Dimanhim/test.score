@@ -71,7 +71,7 @@
     <?php
     $items = [];
     foreach(Scores::find()->orderBy('id_default DESC')->all() as $score) {
-        $items[$score->id] = $score->name;
+        $items[$score->id] = $score->name . ' (' . $score->summa . ' р.)';
     }
     $params = [
         $score->id_default => ['Selected' => true]

@@ -31,6 +31,9 @@ AppAsset::register($this);
 <div class="wrap">
     <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <a class="pull-right" href="/site/logout">Выйти</a>
+                </div>
                 <div class="col-md-3">
                     <ul class="nav">
                         <li><a href="<?= Yii::$app->urlManager->createUrl(['costs/add']) ?>" class="btn btn-success add-score">Добавить расход</a></li>
@@ -54,6 +57,7 @@ AppAsset::register($this);
                         <li<?php if($activePage == 'transfer') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['transfer/add']) ?>">Переводы</a></li>
                         <li<?php if(($activePage == 'costs') && ($activeAction == 'days')) { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['costs/days']) ?>">По дням</a></li>
                         <li<?php if($activePage == 'invest') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['invest/index']) ?>">Invest</a></li>
+                        <li<?php if($activePage == 'log') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['log/index']) ?>">Логи</a></li>
                     </ul>
                     <?= Alert::widget() ?>
                     <?= $content ?>

@@ -12,22 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * InvestController implements the CRUD actions for Invest model.
  */
-class InvestController extends Controller
+class InvestController extends BaseController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Invest models.
