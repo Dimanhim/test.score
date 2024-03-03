@@ -34,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'value',
             'name',
-            'desc',
+            [
+                'attribute' => 'desc',
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'score_id',
                 'value' => function($data) {

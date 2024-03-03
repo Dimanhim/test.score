@@ -43,7 +43,7 @@ class Log extends \yii\db\ActiveRecord
     {
         return [
             [['type_id', 'value'], 'required'],
-            [['type_id', 'value', 'score_id'], 'integer'],
+            [['type_id', 'value', 'score_id', 'payment_id'], 'integer'],
             [['name', 'desc'], 'string', 'max' => 255],
         ];
     }
@@ -60,6 +60,7 @@ class Log extends \yii\db\ActiveRecord
             'name' => 'Название',
             'desc' => 'Описание',
             'score_id' => 'Счет',
+            'payment_id' => 'Списано со счета',
             'created_at' => 'Дата',
             'updated_at' => 'Updated At',
         ];
@@ -92,6 +93,11 @@ class Log extends \yii\db\ActiveRecord
         return $this->hasOne(Scores::className(), ['id' => 'score_id']);
     }
 
+    public function getPayment()
+    {
+        return $this->hasOne(Payments::className(), ['id' => 'payment_id']);
+    }
+
     public static function addLog($type_id, $value, $name, $score_id, $obligstory_payments = null)
     {
         $log = new self();
@@ -102,9 +108,10 @@ class Log extends \yii\db\ActiveRecord
         switch ($type_id) {
             case self::TYPE_COST : {
                 if($score = $log->score) {
-                    $message = "Добавлен расход {$log->name} со счета {$score->name} на сумму {$log->value}";
-                    if($obligstory_payments and ($payment = Payments::findOne($obligstory_payments))) {
-                        $message .= ' из обязательных платежей '.$payment->name;
+                    $log->payment_id = $obligstory_payments;
+                    $message = "Добавлен расход <b>{$log->name}</b> со счета {$score->name} на сумму {$log->value}";
+                    if($log->payment) {
+                        $message .= ' из обязательных платежей <b>'.$log->payment->name.'</b>';
                     }
                     $log->desc = $message;
                 }

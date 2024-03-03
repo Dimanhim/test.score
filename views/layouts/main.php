@@ -39,6 +39,7 @@ AppAsset::register($this);
                         <li><a href="<?= Yii::$app->urlManager->createUrl(['costs/add']) ?>" class="btn btn-success add-score">Добавить расход</a></li>
                         <li><a href="<?= Yii::$app->urlManager->createUrl(['incomes/add']) ?>" class="btn btn-primary">Добавить Доход</a></li>
                         <li<?php if($activePage == 'cats') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['cats/index']) ?>">Категории</a></li>
+                        <li<?php if($activePage == 'report') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['report/index']) ?>">Статистика</a></li>
                         <li<?php if($activePage == 'costs-default') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['costs-default/index']) ?>">Расходы по умолчанию</a></li>
                         <li<?php if($activePage == 'incomes-default') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['incomes-default/index']) ?>">Доходы по умолчанию</a></li>
                         <li<?php if($activePage == 'payments') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['payments/index']) ?>">Обязательные платежи</a></li>
@@ -56,7 +57,9 @@ AppAsset::register($this);
 
                         <li<?php if($activePage == 'transfer') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['transfer/add']) ?>">Переводы</a></li>
                         <li<?php if(($activePage == 'costs') && ($activeAction == 'days')) { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['costs/days']) ?>">По дням</a></li>
-                        <li<?php if($activePage == 'invest') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['invest/index']) ?>">Invest</a></li>
+                        <!--
+                        <li<?php //if($activePage == 'invest') { ?> class="active"<?php //} ?>><a href="<?//= Yii::$app->urlManager->createUrl(['invest/index']) ?>">Invest</a></li>
+                        -->
                         <li<?php if($activePage == 'log') { ?> class="active"<?php } ?>><a href="<?= Yii::$app->urlManager->createUrl(['log/index']) ?>">Логи</a></li>
                     </ul>
                     <?= Alert::widget() ?>

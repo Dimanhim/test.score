@@ -126,3 +126,23 @@ a.desc:after {
 .add-score {
     margin-bottom: 10px;
 }
+.report-page {
+    padding: 20px;
+}
+.report-flex {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.report-flex .report-item {
+    width: 25%;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: #ddd;
+    margin: 0 15px;
+    text-align: center;
+}
+.report-flex .report-item a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
