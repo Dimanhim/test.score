@@ -19,7 +19,7 @@ class Incomes extends ActiveRecord
         return [
             [['income'], 'required'],
             [['name'], 'string'],
-            [['id', 'category', 'income_default', 'score', 'date'], 'integer'],
+            [['id', 'category', 'income_default', 'score', 'date', 'created_at', 'updated_at'], 'integer'],
         ];
     }
     public function attributes()
@@ -31,7 +31,7 @@ class Incomes extends ActiveRecord
             'income_default',
             'category',
             'score',
-            'date',
+            'date', 'created_at', 'updated_at'
         ];
     }
     public function attributeLabels()
