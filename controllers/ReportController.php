@@ -18,7 +18,7 @@ class ReportController extends BaseController
     public function actionIncomes()
     {
         $model = new ReportModel();
-        $model->load(\Yii::$app->request->post());
+        $model->loadData(\Yii::$app->request->post());
         $data = $model->getIncomes();
 
         $salary = $model->getSalary();
@@ -30,6 +30,18 @@ class ReportController extends BaseController
             'salary' => $model->getValues($salary),
             'pension' => $model->getValues($pension),
             'model' => $model,
+        ]);
+    }
+
+    public function actionCats()
+    {
+        $model = new ReportModel();
+        $model->loadData(\Yii::$app->request->post());
+        $data = $model->getCategories();
+        return $this->render('report_cats', [
+            'model' => $model,
+            'data' => $data,
+            'dates' => $model->_dates,
         ]);
     }
 }

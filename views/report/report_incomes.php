@@ -15,14 +15,10 @@ $this->title = 'Статистика доходов';
         <?php $form = ActiveForm::begin(['id' => 'form-report-incomes']) ?>
         <div class="row">
             <div class="col-md-3">
-                <?= $form->field($model, 'date_from')->widget(DatePicker::className(), [
-
-                ]) ?>
+                <?= $form->field($model, 'date_from')->widget(DatePicker::className(), []) ?>
             </div>
             <div class="col-md-3">
-                <?= $form->field($model, 'date_to')->widget(DatePicker::className(), [
-
-                ]) ?>
+                <?= $form->field($model, 'date_to')->widget(DatePicker::className(), []) ?>
             </div>
         </div>
 

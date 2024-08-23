@@ -3,6 +3,7 @@
 namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 class Categories extends ActiveRecord
 {
@@ -28,6 +29,10 @@ class Categories extends ActiveRecord
             'show_default' => 'Показывать',
         ];
     }
+    public function getParentModel()
+    {
+        return $this->hasOne(self::className(), ['id' => 'parent']);
+    }
     public function getParentCats($source)
     {
         return self::find()->where(['parent' => null, 'source' => $source, 'show_default' => 1])->all();
@@ -39,6 +44,17 @@ class Categories extends ActiveRecord
     public function getCategoryName($id)
     {
         return self::findOne($id)->name;
+    }
+    public function isParent()
+    {
+
+    }
+    public function getFullName()
+    {
+        if($this->parentModel) {
+            return $this->parentModel->name.' - '.$this->name;
+        }
+        return $this->name;
     }
     public function getArraySource()
     {
@@ -52,6 +68,23 @@ class Categories extends ActiveRecord
         if($source == self::COST) return 'Расходы';
         if($source == self::INCOME) return 'Доходы';
         return false;
+    }
+
+    public static function getList()
+    {
+        $data = [];
+        if($cats = self::find()->all()) {
+            foreach($cats as $cat) {
+                $catName = '';
+                if($cat->parentModel) {
+                    $catName .= $cat->parentModel->name.' - ';
+                }
+                $catName .= $cat->name;
+                $data[$cat->id] = $catName;
+            }
+        }
+
+        return $data;
     }
 }
 

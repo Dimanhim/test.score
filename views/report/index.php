@@ -13,8 +13,8 @@ use yii\helpers\Url;
             </a>
         </div>
         <div class="report-item">
-            <a href="">
-                Отчет 2
+            <a href="<?= Url::to(['report/cats']) ?>">
+                По категориям
             </a>
         </div>
         <div class="report-item">
